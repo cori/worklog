@@ -4,14 +4,15 @@
 import os
 from sys import stdout
 from optparse import OptionParser
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 
 
 # Change this to the destination of your choice
 # Be careful though, every slash will create a new directory.
-directory   = os.path.expanduser('~') + '/Worklog/'
+#directory   = os.path.expanduser('~') + '/Worklog/'
+directory   = os.path.expanduser('~') + '/Dropbox/worklog/'
 file_format = '%Y/Week %U/%Y-%m-%d.log'
 
 # Logging magic
@@ -34,6 +35,10 @@ class WorkLog:
             raise ValueError('Log file not set.')
         
         return self.__filename
+
+    def get_previous_log_filename(self):
+        
+        return directory + datetime.strftime(datetime.now() - timedelta(1), file_format)
 
     def set_log_filename(self, filename):
         self.__filename = filename
@@ -63,6 +68,9 @@ class WorkLog:
             parser.add_option('-d', '--dump',
                               action="store_true", dest="dump", default=False,
                               help="Dump log file.")
+            parser.add_option('-y', '--yesterday',
+                              action="store_true", dest="yesterday", default=False,
+                              help="Dump previous log file.")
             parser.add_option('-s', '--status',
                               action="store_true", dest="status", default=False,
                               help="Print working status and total time.")
@@ -164,6 +172,7 @@ class WorkLog:
         log.parse_args()
 
         self.handle_dump() \
+        or self.handle_yesterday() \
         or self.handle_status() \
         or self.handle_remove_record() \
         or self.handle_comment()
@@ -176,6 +185,18 @@ class WorkLog:
             return True
 
         for line in open(self.get_log_filename()):
+            stdout.write(line)
+        print(self.get_worktime_str())
+        return True
+        
+    def handle_yesterday(self):
+        if not self.get_options().yesterday:
+            return False
+        if self.log_file_empty():
+            print('No work logged today.')
+            return True
+
+        for line in open(self.get_previous_log_filename()):
             stdout.write(line)
         print(self.get_worktime_str())
         return True
