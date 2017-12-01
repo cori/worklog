@@ -38,7 +38,20 @@ class WorkLog:
 
     def get_previous_log_filename(self):
         
-        return directory + datetime.strftime(datetime.now() - timedelta(1), file_format)
+        date_boundary = self.get_earliest_logged_date_boundary
+        found_file = False
+        filename = ''
+        day_counter = 1
+
+        while not (found_file and day_counter < date_boundary):
+            filename = directory + datetime.strftime(datetime.now() - timedelta(day_counter), file_format)
+            found_file = os.path.exists(filename)
+            day_counter += 1
+
+        if not found_file:
+            raise ValueError('Could not find a previous log file')
+
+        return filename
 
     def set_log_filename(self, filename):
         self.__filename = filename
@@ -127,6 +140,17 @@ class WorkLog:
 
     def get_last_is_end(self):
         return self.get_last_breakpoint()[2]
+
+    def get_earliest_logged_date_boundary():
+        # naively find the earliest logged year and user Jan 1st of that year as the earliest possible logged date
+        # return the days difference bnetween today and that date
+        worklog_dirs = os.listdir(directory)
+        worklog_dirs.sort()
+        first_worklog_year = worklog_dirs[0]
+
+        first_possible_date = datetime.date(first_worklog_year, 1, 1)
+        days_ago = (datetime.date.today-first_possible_date).days
+        return days_ago
 
     def get_worktime_str(self):
         last_time_str = self.get_last_time_str()
