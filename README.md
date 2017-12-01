@@ -49,13 +49,14 @@ Starting (and continuing) work is easily done with the `$ worklog <comment>` com
 _Worklog_ also allows you to show the status (and dump) your working log:
 
     $ worklog --help
-    Usage: worklog [-d] [-s] [-r] [-f] <comment>
+    Usage: worklog [-d] [-y] [-s] [-r] [-f]  <comment>
 
     Small Python logging tool to make work and time management real easy.
 
     Options:
       -h, --help           Show this help message and exit.
       -d, --dump           Dump log file.
+      -d, --yesterday      Dump latest previous log file (review prior day's work)
       -s, --status         Print working status and total time.
       -r, --remove-record  Remove last record from the log.
       -f, --finish         Finish working.
