@@ -216,11 +216,13 @@ class WorkLog:
     def handle_yesterday(self):
         if not self.get_options().yesterday:
             return False
-        if self.log_file_empty():
-            print('No work logged today.')
+
+        previous_filename = self.get_previous_log_filename()
+        if not previous_filename:
+            print('No previous log file.')
             return True
 
-        for line in open(self.get_previous_log_filename()):
+        for line in open(previous_filename):
             stdout.write(line)
         print(self.get_worktime_str())
         return True
