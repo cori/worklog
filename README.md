@@ -56,7 +56,7 @@ _Worklog_ also allows you to show the status (and dump) your working log:
     Options:
       -h, --help           Show this help message and exit.
       -d, --dump           Dump log file.
-      -d, --yesterday      Dump latest previous log file (review prior day's work)
+      -y, --yesterday      Dump latest previous log file (review prior day's work)
       -s, --status         Print working status and total time.
       -r, --remove-record  Remove last record from the log.
       -f, --finish         Finish working.
