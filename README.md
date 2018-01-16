@@ -141,7 +141,7 @@ To wrap it up, add `%USERPROFILE%\Worklog\worklog\lib\Windows\` to your ["Path" 
 
 **Note:** The linked tutorial adds it to the _system variables_, which installs _Worklog_ systemwide. Add it to the _user variables_ section to install _Worklog_ for your account only.
 
-And your done!
+And you're done!
 
 ## Uninstallation
 
@@ -179,7 +179,7 @@ Option      | Default                 | Note
 directory   | ~/Worklog/              | `~` expands to your [home directory](http://en.wikipedia.org/wiki/Home_directory)
 file_format | %Y/Week %U/%Y-%m-%d.log | 2013/Week 31/2013-08-11.log
 
-**Note:** Be careful altering the _directory_ and _file_format_ options, since it wil create a new folder with each `/` (or `\` in Windows). Avoid using `..`.
+**Note:** Be careful altering the _directory_ and _file_format_ options, since it will create a new folder with each `/` (or `\` in Windows). Avoid using `..`.
 
 ## Coming Up
 
